@@ -79,7 +79,9 @@ Untuk memastikan bot berjalan terus-menerus di background, kamu bisa menggunakan
 
 2. Jalankan bot: Setelah berada di dalam sesi screen, jalankan perintah bot seperti biasa:
 
-```node main.js```
+```
+node main.js
+```
 
 
 3. Detaching dari sesi screen: Jika kamu ingin melepaskan sesi dan biarkan bot berjalan di background, tekan:
@@ -89,4 +91,6 @@ Ctrl + A, lalu tekan D
 
 4. Kembali ke sesi screen: Jika kamu ingin kembali ke sesi yang sudah berjalan, gunakan perintah:
 
-```screen -r datapig-bot```
+```
+screen -r datapig-bot
+```
