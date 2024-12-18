@@ -23,6 +23,21 @@ const ROUTER_ABI = [
     }
 ];
 
+const chalk = require('chalk');
+
+// Banner function
+function displayBanner() {
+    console.log(chalk.blueBright(`
+        ██      
+        ██      
+        ██      
+        ██      
+        ██▄▄▄▄▄ 
+        ███████ 
+    `));
+    console.log(chalk.green('Telegram: @Dustvoid'));
+    console.log(chalk.green('--- Bot is starting... ---\n'));
+}
 // Helper to read private keys from file
 function readPrivateKeys(file) {
     return fs.readFileSync(file, 'utf8')
@@ -117,41 +132,30 @@ async function mintFile(privateKey, url, encryptedKey, retries = 3) {
         const account = web3.eth.accounts.privateKeyToAccount(privateKey);
         const contract = new web3.eth.Contract(ROUTER_ABI, ROUTER_ADDRESS);
 
-        // Prepare the full IPFS URL
         const fullUrl = `ipfs://${url}`;
-
-        // Estimate gas for the addFile method
         const gasEstimate = await contract.methods.addFile(fullUrl, encryptedKey).estimateGas({ from: account.address });
-
-        // Get the current gas price
         const gasPrice = await web3.eth.getGasPrice();
-
-        // Create transaction data
         const data = contract.methods.addFile(fullUrl, encryptedKey).encodeABI();
+
         const transaction = {
             to: ROUTER_ADDRESS,
             data,
             gas: gasEstimate,
-            gasPrice: gasPrice, // Include the current gas price
+            gasPrice,
         };
 
-        // Sign the transaction
         const signedTransaction = await web3.eth.accounts.signTransaction(transaction, privateKey);
-
-        // Send the signed transaction
         const receipt = await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
-        console.log('Mintfile transaction successful: Transaction Hash:', receipt.transactionHash);
 
-        // Return the transaction hash for confirmation
+        console.log('Mintfile transaction successful: Transaction Hash:', receipt.transactionHash);
         return receipt.transactionHash;
     } catch (error) {
         console.error(`Error in mintFile (Attempt ${4 - retries}):`, error.message);
 
-        // Retry if we have remaining attempts
         if (retries > 1) {
             console.log(`Retrying in 1 minute...`);
-            await new Promise(resolve => setTimeout(resolve, 60000)); // Wait for 1 minute before retrying
-            return mintFile(privateKey, url, encryptedKey, retries - 1); // Retry with reduced retries
+            await new Promise(resolve => setTimeout(resolve, 60000));
+            return mintFile(privateKey, url, encryptedKey, retries - 1);
         } else {
             console.error('All retry attempts failed.');
             throw new Error('Failed to mint file after 3 attempts');
@@ -168,19 +172,16 @@ function generateRandomPreferences(tokens) {
     ];
     const randomCategories = categories.sort(() => 0.5 - Math.random()).slice(0, 3);
 
-    // Filter tokens that match the random categories
     const matchedTokens = tokens.filter(token => 
         token.categories.some(category => randomCategories.includes(category))
     );
 
-    // Select 13 or 14 distinct tokens randomly from matched tokens
     const selectedTokens = matchedTokens
         .sort(() => 0.5 - Math.random())
         .slice(0, Math.random() < 0.5 ? 13 : 14);
 
-    // Create likes payload with true/false for selected tokens
     const likes = selectedTokens.reduce((acc, token) => {
-        acc[token.id] = Math.random() < 0.5; // Random true/false
+        acc[token.id] = Math.random() < 0.5;
         return acc;
     }, {});
 
@@ -189,6 +190,7 @@ function generateRandomPreferences(tokens) {
 
 // Main execution
 async function mainExecution() {
+    displayBanner();
     const privateKeyData = readPrivateKeys(PRIVATE_KEYS_FILE);
 
     for (const { privateKey } of privateKeyData) {
