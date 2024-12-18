@@ -12,6 +12,8 @@ Penanganan Batas Harian: Bot secara otomatis mendeteksi dan menangani respons "D
 
 Eksekusi Terjadwal: Bot berjalan setiap 24 jam dan memproses wallet pada interval yang sudah ditentukan.
 
+Multiakun: Bot mendukung pemrosesan beberapa akun sekaligus. Private keys dari setiap akun cukup ditambahkan ke file pk.txt, masing-masing pada baris baru.
+
 
 ## Persyaratan
 
