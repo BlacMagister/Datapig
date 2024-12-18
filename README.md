@@ -38,7 +38,10 @@ Reference Codes (opsional, tapi disarankan untuk reward tambahan) untuk wallet k
 Salin dan jalankan perintah berikut di terminal:
 
 ```
-git clone https://github.com/BlacMagister/Datapig.git cd Datapig
+git clone https://github.com/BlacMagister/Datapig.git
+```
+```
+cd Datapig
 ```
 
 
