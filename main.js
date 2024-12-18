@@ -1,7 +1,7 @@
 const Web3 = require('web3');
 const axios = require('axios');
 const fs = require('fs');
-const chalk = require('chalk');
+const chalk = require('chalk'); // Hanya satu deklarasi chalk
 
 process.removeAllListeners('warning');
 
@@ -23,8 +23,6 @@ const ROUTER_ABI = [
     }
 ];
 
-const chalk = require('chalk');
-
 // Banner function
 function displayBanner() {
     console.log(chalk.blueBright(`
@@ -38,6 +36,7 @@ function displayBanner() {
     console.log(chalk.green('Telegram: @Dustvoid'));
     console.log(chalk.green('--- Bot is starting... ---\n'));
 }
+
 // Helper to read private keys from file
 function readPrivateKeys(file) {
     return fs.readFileSync(file, 'utf8')
@@ -257,7 +256,24 @@ async function mainExecution() {
         console.log(chalk.magenta('--- End of wallet process ---\n'));
     }
     console.log(chalk.magenta('--- Wait for next 24 hours... ---\n'));
+
+    // Waktu mundur
+    let countdown = 86400; // 24 hours in seconds
+    const interval = setInterval(() => {
+        const hours = Math.floor(countdown / 3600);
+        const minutes = Math.floor((countdown % 3600) / 60);
+        const seconds = countdown % 60;
+
+        console.log(`Next execution in: ${hours}h ${minutes}m ${seconds}s`);
+
+        if (countdown <= 0) {
+            clearInterval(interval);
+            mainExecution(); // Run again after 24 hours
+        }
+
+        countdown--;
+    }, 1000); // Update every second
 }
 
-setInterval(mainExecution, 86400000);
-mainExecution();
+setInterval(mainExecution, 86400000); // Runs every 24 hours
+mainExecution(); // Initial run
