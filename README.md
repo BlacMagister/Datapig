@@ -1,21 +1,21 @@
-Datapig Bot
+## Vana Datapig Auto Bot
 
-Bot ini otomatis memproses data wallet, menghasilkan preferensi, menandatangani pesan, dan mengirimkannya ke API Datapig. Bot juga dilengkapi dengan mekanisme retry dan penanganan batas harian.
+Bot ini otomatis memproses data wallet, menghasilkan preferensi, menandatangani pesan, dan mengirimkannya ke API Datapig. Bot juga dilengkapi dengan mekanisme retry dan penanganan batas harian. Bot ini berjalan setiap 24 jam untuk memproses wallet secara otomatis.
 
-Fitur
+## Fitur
 
-Pemrosesan Wallet Otomatis: Memproses data setiap wallet, menghasilkan preferensi, menandatangani pesan, dan mengirimnya ke API Datapig.
+Pemrosesan Wallet Otomatis: Bot memproses data setiap wallet, menghasilkan preferensi, menandatangani pesan, dan mengirimkannya ke API Datapig.
 
-Mekanisme Retry: Bot akan mencoba kembali hingga 3 kali jika proses minting gagal.
+Mekanisme Retry: Bot mencoba kembali hingga 3 kali jika proses minting gagal.
 
-Penanganan Batas Harian: Secara otomatis mendeteksi dan menangani respons "Daily Limit Reached" dari API Datapig dan melanjutkan ke wallet berikutnya.
+Penanganan Batas Harian: Bot secara otomatis mendeteksi dan menangani respons "Daily Limit Reached" dari API Datapig dan melanjutkan ke wallet berikutnya.
 
 Eksekusi Terjadwal: Bot berjalan setiap 24 jam dan memproses wallet pada interval yang sudah ditentukan.
 
 
-Persyaratan
+## Persyaratan
 
-Sebelum mulai, pastikan kamu sudah memenuhi persyaratan berikut:
+Sebelum memulai, pastikan kamu sudah memenuhi persyaratan berikut:
 
 Node.js: Versi 16 atau lebih tinggi.
 
@@ -26,45 +26,60 @@ Private keys untuk wallet yang ingin kamu interaksikan.
 Reference Codes (opsional, tapi disarankan untuk reward tambahan) untuk wallet kamu.
 
 
-Instalasi
+
+---
+
+## Instalasi
 
 1. Clone repository
 
-git clone https://github.com/BlacMagister/Datapig.git
-cd Datapig
+Salin dan jalankan perintah berikut di terminal:
+
+```git clone https://github.com/BlacMagister/Datapig.git```
+```cd Datapig```
 
 
-2. Buat file pk.txt Buat file bernama pk.txt di direktori root proyek, lalu masukkan private keys wallet kamu di dalamnya.
+2. File pk.txt
 
-''nano pk.txt''
+masukkan private keys wallet kamu di dalamnya:
 
-
-3. Instal dependensi Jalankan perintah berikut untuk menginstal semua dependensi yang diperlukan.
-
-npm install
+```nano pk.txt```
 
 
+3. Instal dependensi
 
-Menjalankan Bot
+Jalankan perintah berikut untuk menginstal semua dependensi yang diperlukan:
+
+```npm install```
+
+
+
+
+---
+
+## Menjalankan Bot
 
 Setelah setup selesai, kamu bisa menjalankan bot dengan perintah berikut:
 
-node main.js
+```node main.js```
 
-Bot ini akan memproses setiap wallet yang ada di dalam file pk.txt, menghasilkan preferensi acak, menandatangani pesan, mengirimnya ke API Datapig, dan melakukan minting file ke blockchain. Proses ini akan diulang setiap 24 jam.
+Bot ini akan memproses setiap wallet yang ada di dalam file pk.txt, menghasilkan preferensi acak, menandatangani pesan, mengirimkannya ke API Datapig, dan melakukan minting file ke blockchain. Proses ini akan diulang setiap 24 jam.
+
+
+---
 
 Menjalankan Bot Secara Terus-Menerus
 
-Untuk memastikan bot berjalan terus-menerus di background, kamu bisa menggunakan screen. Berikut cara menjalankannya:
+Untuk memastikan bot berjalan terus-menerus di background, kamu bisa menggunakan screen. Berikut adalah cara menjalankannya:
 
-1. Mulai sesi screen baru:
+1. Mulai sesi screen baru: Jalankan perintah berikut:
 
-screen -S datapig-bot
+```screen -S datapig-bot```
 
 
 2. Jalankan bot: Setelah berada di dalam sesi screen, jalankan perintah bot seperti biasa:
 
-node main.js
+```node main.js```
 
 
 3. Detaching dari sesi screen: Jika kamu ingin melepaskan sesi dan biarkan bot berjalan di background, tekan:
@@ -74,4 +89,4 @@ Ctrl + A, lalu tekan D
 
 4. Kembali ke sesi screen: Jika kamu ingin kembali ke sesi yang sudah berjalan, gunakan perintah:
 
-screen -r datapig-bot
+```screen -r datapig-bot```
